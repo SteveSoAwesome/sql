@@ -1,5 +1,6 @@
 # CareerFoundry Project: SQL
 A project utilizing PostgreSQL to analyze and derive insights for a fictional movie rental company, Rockbuster Stealth.  This repository serves as a demonstration of my proficiency in advanced SQL querying, focusing on complex joins, subqueries, and Common Table Expressions (CTEs). The SQL scripts provided here highlight my ability to manipulate and extract insights from relational databases effectively.
+
 <img src="http://i.imgur.com/3TurqHH.png" width="275" height="85">
 
 ## Objective:
