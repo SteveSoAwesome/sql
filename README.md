@@ -1,8 +1,8 @@
 # CareerFoundry Project: SQL
 A project utilizing PostgreSQL to analyze and derive insights for a fictional movie rental company, Rockbuster Stealth.
+<img src="http://i.imgur.com/3TurqHH.png" width="275" height="80">
 
 ## Objective:
-<img src=" https://banner2.cleanpng.com/20181117/trz/kisspng-logo-psql-brand-product-font-postgresql-wikipedia-games-warface-ru-5bf0dec1dd6ac5.5634737615425123219069.jpg" width="250" height="50">
 The Rockbuster Stealth Management Board has asked a series of business questions, and they expect data-driven answers that they can use for their 2020 company strategy.
 
 ## Data:
