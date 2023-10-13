@@ -1,0 +1,34 @@
+/* 
+Joining the customer, rental, and payments table together.
+By combinging them, we can see all of a customer's rental and payment activity.
+*/
+SELECT a.customer_id,	
+	CONCAT (first_name, ' ', last_name) AS customer_name,
+	SUM(c.amount) AS total_spend
+FROM customer a	
+JOIN rental b	
+	ON a.customer_id=b.customer_id
+JOIN payment c	
+	ON b.rental_id=c.rental_id
+GROUP BY a.customer_id	
+ORDER BY total_spend DESC	
+LIMIT 10;
+
+
+/*
+Joining the payment, rental, inventory, film, customer, film category, and category tables together.
+Combining these will allow us to calculate the total revenue for each genre and the total amount of
+films available within their categories.
+*/
+SELECT g.name AS genre,	
+       '$'||SUM(amount) AS total_revenue,	
+	   COUNT(d.film_id) AS total_films
+FROM payment a	
+JOIN rental b ON a.rental_id=b.rental_id	
+JOIN inventory c ON b.inventory_id=c.inventory_id	
+JOIN film d ON c.film_id=d.film_id	
+JOIN customer e ON b.customer_id=e.customer_id	
+JOIN film_category f ON d.film_id=f.film_id	
+JOIN category g ON f.category_id=g.category_id	
+GROUP BY genre
+ORDER BY total_revenue DESC	
