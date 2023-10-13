@@ -1,11 +1,11 @@
--- CTE  
+-- CTE connecting all necessary tables
 WITH rockbusterdb_cte (customer_id, first_name, last_name, city, country, amount) AS
  (SELECT a.customer_id, a.first_name, a.last_name, c.city, d.country, SUM(p.amount) AS total_paid_amount
  FROM customer a
  JOIN address b ON a.address_id=b.address_id
  JOIN city c ON b.city_id=c.city_id
  JOIN country d ON c.country_id=d.country_id
- JOIN rental r ON r.rental_id=p.rental_id
+ JOIN rental r ON r.customer_id=a.customer_id
  JOIN payment p ON r.rental_id=p.rental_id
  GROUP BY a.customer_id, a.first_name, a.last_name, c.city, d.country)
 
@@ -13,7 +13,7 @@ WITH rockbusterdb_cte (customer_id, first_name, last_name, city, country, amount
 Finding the average amount spent by the 5 highest spending customers, within the top 10 cities with the highest customer
 count, pulled from the top 10 countries with the highest customer count.
 */
-SELECT '$'||ROUND(AVG(total_amount_paid.spend_total,2) AS average
+SELECT '$'||ROUND(AVG(total_amount_paid.spend_total),2) AS "average_spent"
 FROM (
       --Grabbing to top 5 highest spending customers from the top 10 cities, of the top 10 countries
       SELECT customer_id, first_name, last_name, city, country, SUM(amount) AS spend_total
