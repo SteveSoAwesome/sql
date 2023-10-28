@@ -1,0 +1,36 @@
+/*
+Joining the payment, rental, inventory, film, customer, film category, and category tables together. Combining these
+will allow us to calculate the total revenue for each genre and the total amount of films available within their categories.
+
+From there, utilized the DENSE_RANK window function to rank the genres by revenue.  Made this into a sub-query so that the
+WHERE clause can be used to pull the top 5 ranks, due to window functions and alias not being recognized via the WHERE clause.
+*/
+
+SELECT
+    genre,
+    total_revenue,
+    total_films,
+    rank
+FROM (
+      SELECT 
+          g.name AS genre,
+          '$' || SUM(amount) AS total_revenue,
+          COUNT(d.film_id) AS total_films,
+          DENSE_RANK() OVER(ORDER BY SUM(amount) DESC) AS rank
+      FROM payment a
+      JOIN rental b
+          ON a.rental_id = b.rental_id
+      JOIN inventory c
+          ON b.inventory_id = c.inventory_id
+      JOIN film d
+          ON c.film_id = d.film_id
+      JOIN customer e
+          ON b.customer_id = e.customer_id
+      JOIN film_category f
+          ON d.film_id = f.film_id
+      JOIN category g
+          ON f.category_id = g.category_id
+      GROUP BY genre
+      ORDER BY total_revenue DESC
+     ) AS total
+WHERE rank <= 5;
