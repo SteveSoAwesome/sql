@@ -1,3 +1,10 @@
+/*
+Utilizing a sub-query to use the DENSE_RANK window function in conjunction with the WHERE clause.
+
+The issue: WHERE clause cannot have a window function within it, nor can it reference an alias.
+
+The solution: Perform the ranking window function within a sub-query and then use the WHERE clause when pulling results from that sub-query as a temp table.
+*/
 SELECT
     title,
     revenue,
