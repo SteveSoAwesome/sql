@@ -22,5 +22,5 @@ FROM (
     JOIN payment d
         ON c.rental_id = d.rental_id
     GROUP BY 1
-) AS rank_table
+    ) AS rank_table
 WHERE rank <= 10;
