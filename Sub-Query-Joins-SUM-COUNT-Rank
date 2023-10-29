@@ -14,7 +14,7 @@ SELECT
 FROM (
       SELECT 
           g.name AS genre,
-          '$' || SUM(amount) AS total_revenue,
+          '$' || ROUND(SUM(amount), 2) AS total_revenue,
           COUNT(d.film_id) AS total_films,
           DENSE_RANK() OVER(ORDER BY SUM(amount) DESC) AS rank
       FROM payment a
